@@ -21,6 +21,8 @@ public class Test
             myMap.put(s, i);
         }
         System.out.println("Size: " + myMap.size());
+        System.out.println(myMap.remove("#996"));
+        
         for(int i = 0; i < 1000; ++i)
         {
             String s = "#" + i;
