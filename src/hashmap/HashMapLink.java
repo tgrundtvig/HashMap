@@ -81,8 +81,8 @@ public class HashMapLink<K,V> implements Map<K,V>
     {
         int index = getIndex(key);
         
-        Link link = array[index];
-        Link prevLink = link;
+        Link<K,V> link = array[index];
+        Link<K, V> prevLink = link;
         while(link != null){
             if(link.getEntry().getKey() == key)
                 break;
@@ -104,7 +104,7 @@ public class HashMapLink<K,V> implements Map<K,V>
             prevLink = link.getNext();
         } 
         
-        return (V) link.getEntry().getValue();
+        return link.getEntry().getValue();
     }
 
     @Override
