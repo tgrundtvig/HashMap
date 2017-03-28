@@ -13,7 +13,7 @@ public class Test
 {
     public static void main(String[] args)
     {
-        Map<String, Integer> myMap = new HashMapLink<>();
+        Map<String, Integer> myMap = new HashMap<>();
         
         for(int i = 0; i < 1000; i += 2)
         {
@@ -21,6 +21,8 @@ public class Test
             myMap.put(s, i);
         }
         System.out.println("Size: " + myMap.size());
+        System.out.println(myMap.remove("#998"));
+        
         for(int i = 0; i < 1000; ++i)
         {
             String s = "#" + i;
