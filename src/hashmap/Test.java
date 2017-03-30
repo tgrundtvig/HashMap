@@ -15,7 +15,7 @@ public class Test
     {
         Map<String, Integer> myMap = new HashMapLink<>();
         
-        for(int i = 0; i < 1000; i += 2)
+        /*for(int i = 0; i < 1000; i += 2)
         {
             String s = "#" + i;
             myMap.put(s, i);
@@ -27,5 +27,13 @@ public class Test
             Integer value = myMap.get(s);
             System.out.println("Key: " + s + " Value: " + value);
         }
+        */
+         myMap.put("This is a test", 1);
+         myMap.put("This is also a test", 2);
+         myMap.put("This is also a test + 1", 3);
+         
+         System.out.println("Size before remove: " + myMap.size());
+         myMap.remove("This is also a test");
+         System.out.println("Size after remove : " + myMap.size());
     }
 }
