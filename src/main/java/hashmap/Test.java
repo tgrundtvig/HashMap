@@ -15,17 +15,14 @@ public class Test
     {
         Map<String, Integer> myMap = new HashMapLink<>();
         
-        for(int i = 0; i < 1000; i += 2)
-        {
-            String s = "#" + i;
-            myMap.put(s, i);
-        }
+        myMap.put("test", 1);
+        myMap.put("test2", 2);
+        
         System.out.println("Size: " + myMap.size());
-        for(int i = 0; i < 1000; ++i)
-        {
-            String s = "#" + i;
-            Integer value = myMap.get(s);
-            System.out.println("Key: " + s + " Value: " + value);
-        }
+    
+        myMap.remove("test");
+        
+        System.out.println("Size: " + myMap.size());
+    
     }
 }
