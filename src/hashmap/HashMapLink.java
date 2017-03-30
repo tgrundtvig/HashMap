@@ -63,11 +63,9 @@ public class HashMapLink<K, V> implements Map<K, V> {
     public V remove(K key) {
         int index = getIndex(key);
         Link<K, V> cur = array[index];
-        Link<K, V> prev;
         Link<K, V> removed = cur;
         boolean check = false;
         boolean prevFound = false;
-//        int i = index + 1;
         
         for (int i = index + 1; i < array.length; i++) {
             if (cur == null) {
@@ -89,20 +87,6 @@ public class HashMapLink<K, V> implements Map<K, V> {
                 prevFound = true;
             }
         }
-//        while (i < array.length) {
-//            if (cur == null) {
-//                return null;
-//            } else if (array[i] != null && !check) {
-//                array[index] = array[i];
-//                size--;
-//                check = true;
-//            } else if (array[i] != null && check) {
-//                array[index].setNext(array[i]);
-//                return removed.getEntry().getValue();
-//            }
-//            i++;
-//        }
-
         return removed.getEntry().getValue();
     }
     
