@@ -76,10 +76,32 @@ public class HashMapLink<K,V> implements Map<K,V>
         }
     }
 
+    //
     @Override
     public V remove(K key)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+     int index = getIndex(key);
+     
+     Link<K,V> curr = array[index];
+     Link<K,V> previous = null;
+     
+     while(curr != null && !curr.getEntry().getKey().equals(key)){
+         previous = curr;
+         curr = curr.getNext();
+     }
+     
+     if (curr != null) {
+            if (previous != null) {
+                previous.setNext(curr.getNext());
+            } else {
+                array[index] = curr.getNext();
+            }
+
+            size--;
+        }
+    
+     
+     return curr.getEntry().value;
     }
 
     @Override
