@@ -15,6 +15,7 @@ public interface Map<K, V>
    public V get(K key);
    public V remove(K key);
    public int size();
+   public String getMapName();
    public default boolean isEmpty()
    {
        return size() == 0;
