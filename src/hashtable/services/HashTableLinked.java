@@ -28,7 +28,7 @@ public class HashTableLinked<k, v> implements HashTableInterface<k, v> {
 
     private void insert(k key, v value, Node<k, v> node) {
         if (node.getNext() == null) {
-            node.setNext(new Node<k,v>(key, value));
+            node.setNext(new Node<k, v>(key, value));
         } else {
             insert(key, value, node.getNext());
         }
@@ -40,7 +40,8 @@ public class HashTableLinked<k, v> implements HashTableInterface<k, v> {
         if (null == arr[index]) {
             return null;
         } else {
-            return (v) find(key, arr[index]);
+            v result = (v) find(key, arr[index]);
+            return ((result == null)) ? null: (v)find(key,arr[index]);
         }
     }
 
@@ -51,9 +52,8 @@ public class HashTableLinked<k, v> implements HashTableInterface<k, v> {
         if (node.key.equals(key)) {
             return node.value;
         } else {
-            find(key, node.getNext());
+            return find(key, node.getNext());
         }
-        return null;
     }
 
     @Override
@@ -68,18 +68,25 @@ public class HashTableLinked<k, v> implements HashTableInterface<k, v> {
     }
 
     private Node<k, v> delete(k key, Node<k, v> node) {
-        if (node != null) {
-            if (node.key.equals(key)) {
-                if (node.key == key) {
-                    Node<k, v> x = node.getNext();
-                    node.setNext(null);
-                    return x;
-                }
+        if (node.key.equals(key)) {
+            if(node.getNext() == null) {
+                return null;
             } else {
-                delete(key, node.getNext());
+                return node.getNext();
             }
+        } else if(node.getNext().key == key) {
+            if(node.getNext().getNext() == null) {
+                Node<k, v> x = node.getNext().getNext();
+                node.getNext().setNext(null);
+                node.setNext(x);
+                return node;
+            } else {
+                node.setNext(null);
+                return node;
+            }
+        } else {
+            return delete(key, node.getNext());
         }
-        return node;
     }
 
     private void increaseArr() {
@@ -88,7 +95,11 @@ public class HashTableLinked<k, v> implements HashTableInterface<k, v> {
         elementsInArray = 0;
         for (int i = 0; i < x.length; i++) {
             if (null != x[i]) {
-                this.insert((k) x[i].key, (v) x[i].value);
+                Node<k, v> node = x[i];
+                do {
+                    this.insert((k) node.key, (v) node.value);
+                    node = node.getNext();
+                } while (node != null);
             }
         }
     }
@@ -99,7 +110,11 @@ public class HashTableLinked<k, v> implements HashTableInterface<k, v> {
         elementsInArray = 0;
         for (int i = 0; i < x.length; i++) {
             if (null != x[i]) {
-                this.insert((k) x[i].key, (v) x[i].value);
+                Node<k, v> node = x[i];
+                do {
+                    this.insert((k) x[i].key, (v) x[i].value);
+                    node = node.getNext();
+                } while (node != null);
             }
         }
     }
