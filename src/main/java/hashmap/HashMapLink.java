@@ -9,6 +9,7 @@ package hashmap;
  * @author Tobias
  */
 public class HashMapLink<K, V> implements Map<K, V> {
+
     private Link<K, V>[] array;
     private int size;
 
@@ -16,7 +17,6 @@ public class HashMapLink<K, V> implements Map<K, V> {
         array = new Link[8];
         size = 0;
     }
-
 
     @Override
     public V put(K key, V value) {
@@ -60,7 +60,26 @@ public class HashMapLink<K, V> implements Map<K, V> {
 
     @Override
     public V remove(K key) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int index = getIndex(key);
+        Link<K, V> cur = array[index];
+        Link<K, V> prev = null;
+
+        while (cur != null && !cur.getEntry().getKey().equals(key)) {
+            prev = cur;
+            cur = cur.getNext();
+        }
+
+        if (cur != null) {
+            if (prev != null) {
+                prev.setNext(cur.getNext());
+            } else {
+                array[index] = cur.getNext();
+            }
+
+            size--;
+        }
+
+        return cur.getEntry().value;
     }
 
     @Override
@@ -88,6 +107,7 @@ public class HashMapLink<K, V> implements Map<K, V> {
     }
 
     private static class MapEntry<K, V> {
+
         private final K key;
         private final V value;
 
@@ -106,6 +126,7 @@ public class HashMapLink<K, V> implements Map<K, V> {
     }
 
     private static class Link<K, V> {
+
         private MapEntry<K, V> entry;
         private Link<K, V> next;
 
@@ -129,7 +150,6 @@ public class HashMapLink<K, V> implements Map<K, V> {
         public void setNext(Link<K, V> next) {
             this.next = next;
         }
-
 
     }
 }
