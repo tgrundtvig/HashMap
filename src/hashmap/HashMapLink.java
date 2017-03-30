@@ -88,6 +88,11 @@ public class HashMapLink<K, V> implements Map<K, V> {
         return Math.abs(key.hashCode()) % array.length;
     }
 
+    @Override
+    public String getMapName() {
+        return "LinkedHashMap";
+    }
+
     private static class MapEntry<K, V> {
 
         private final K key;

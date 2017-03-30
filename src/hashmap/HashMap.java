@@ -50,10 +50,10 @@ public class HashMap<K, V> implements Map<K, V> {
         while (true) {
 
             if (array[index] == null) {
-                System.out.println("Collisions: " + collisions);
+//                System.out.println("Collisions: " + collisions);
                 return null;
             } else if (array[index].getKey().equals(key)) {
-                System.out.println("Collisions: " + collisions);
+//                System.out.println("Collisions: " + collisions);
                 return array[index].getValue();
             } else {
                 index = incIndex(index);
@@ -64,7 +64,30 @@ public class HashMap<K, V> implements Map<K, V> {
 
     @Override
     public V remove(K key) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int index = getIndex(key);
+        boolean shrink = false;
+        V val = null;
+        MapEntry<K, V> curr = array[index];
+
+        while (true) {
+            if (curr == null) {
+                break;
+            }
+            if (shrink) {
+                array[index - 1] = array[index];
+            }
+            if (curr.getKey().equals(key)) {
+                val = curr.getValue();
+                shrink = true;
+                array[index] = null;
+            }
+
+            if (++index >= array.length) {
+                break;
+            }
+            curr = array[index];
+        }
+        return val;
     }
 
     private int incIndex(int index) {
@@ -90,6 +113,11 @@ public class HashMap<K, V> implements Map<K, V> {
                 }
             }
         }
+    }
+
+    @Override
+    public String getMapName() {
+        return "HashMap";
     }
 
     private static class MapEntry<K, V> {
