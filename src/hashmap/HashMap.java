@@ -81,7 +81,27 @@ public class HashMap<K,V> implements Map<K,V>
     @Override
     public V remove(K key)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int index = getIndex(key);
+        V val = null;
+        MapEntry<K, V> current = array[index];
+        while(true)
+        {    
+            if(current == null)
+            {
+                return null;
+            }
+            if(current.getKey().equals(key))
+            {
+                val = current.getValue();
+                current = null;
+                this.size--;
+                return val;
+            }
+            else
+            {
+                index = incIndex(index);
+            }
+        }
     }
     
     private int incIndex(int index)
