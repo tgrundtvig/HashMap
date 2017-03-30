@@ -13,19 +13,28 @@ public class Test
 {
     public static void main(String[] args)
     {
-        Map<String, Integer> myMap = new HashMapLink<>();
-        
-        for(int i = 0; i < 1000; i += 2)
-        {
-            String s = "#" + i;
-            myMap.put(s, i);
-        }
-        System.out.println("Size: " + myMap.size());
-        for(int i = 0; i < 1000; ++i)
-        {
-            String s = "#" + i;
-            Integer value = myMap.get(s);
-            System.out.println("Key: " + s + " Value: " + value);
-        }
+        TestMap(100);
+        TestLink(100);
     }
+    
+    public static void TestMap(int times){
+        Map<Integer, Integer> map = new HashMap<>();
+        for(int i = 0; i < times; i ++){
+            map.put(i, i+10);
+        }
+        System.out.println("Hash size before:" + map.size());
+        map.remove(50);
+        System.out.println("Hash size after:" + map.size());
+    }
+    
+    public static void TestLink(int times){
+        Map<String, Integer> link = new HashMapLink<>();
+        for(int i = 0; i < times; i ++){
+            link.put("@"+i, i);
+        }
+        System.out.println("Link size before:" + link.size());
+        link.remove("@50");
+        System.out.println("Link size after:" + link.size());
+    }
+    
 }
