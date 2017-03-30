@@ -47,10 +47,10 @@ public class HashMapLink<K, V> implements Map<K, V> {
         int collisions = 0;
         while (true) {
             if (cur == null) {
-                System.out.println("Collisions: " + collisions);
+//                System.out.println("Collisions: " + collisions);
                 return null;
             } else if (cur.getEntry().getKey().equals(key)) {
-                System.out.println("Collisions: " + collisions);
+//                System.out.println("Collisions: " + collisions);
                 return cur.getEntry().getValue();
             } else {
                 ++collisions;
@@ -61,7 +61,35 @@ public class HashMapLink<K, V> implements Map<K, V> {
 
     @Override
     public V remove(K key) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int index = getIndex(key);
+        if (array[index] == null) {
+            return null;
+        }
+
+        Link<K, V> curr = array[index];
+        Link<K, V> prev = curr;
+
+        while (true) {
+            if (curr.getEntry().getKey().equals(key)) {
+                V val = curr.getEntry().getValue();
+                if (curr.getEntry().getKey().equals(prev.getEntry().getKey())) {
+                    if (curr.getNext() != null) {
+                        array[index] = curr.getNext();
+                    } else {
+                        array[index] = null;
+                    }
+                } else {
+                    prev.setNext(curr.getNext());
+                }
+                return val;
+            } else {
+                prev = curr;
+                if (curr.getNext() == null) {
+                    return null;
+                }
+                curr = curr.getNext();
+            }
+        }
     }
 
     @Override
