@@ -13,7 +13,7 @@ public class Test
 {
     public static void main(String[] args)
     {
-        Map<String, Integer> myMap = new HashMapLink<>();
+        Map<String, Integer> myMap = new HashMap<>();
         
         myMap.put("test", 1);
         myMap.put("test2", 2);
