@@ -79,7 +79,39 @@ public class HashMapLink<K,V> implements Map<K,V>
     @Override
     public V remove(K key)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int index = getIndex(key);
+        Link<K,V> cur = array[index];
+        Link<K,V> prev = null;
+        if(cur == null){
+            return null;
+        }
+        //Try to match the key
+        while(true) {
+            if (cur.getEntry().getKey().equals(key)) {
+                size--;
+
+                //This is the case of a linkedlist that has one element
+                if (cur.getNext() == null && prev == null) {
+                    array[index] = null;
+                    //There is now a chance we need to resize the array of linkedlists
+                    shrinkArray();
+                    return cur.getEntry().getValue();
+                }
+                //Case for element in with nodes before and after
+                else if (cur.getNext() != null){
+                    prev.setNext(cur.getNext());
+                    return cur.getEntry().getValue();
+                }
+                //Last case should be end of list.
+                else{
+                    prev.setNext(null);
+                    return cur.getEntry().getValue();
+                }
+
+            }
+            prev = cur;
+            cur = cur.getNext();
+        }
     }
 
     @Override
@@ -87,23 +119,36 @@ public class HashMapLink<K,V> implements Map<K,V>
     {
         return size;
     }
-    
+
+
+
+    private void resize(int newSize){
+        Link<K,V>[] oldArray = array;
+        array = new Link[newSize];
+        size = 0;
+        for(int i = 0; i < oldArray.length; ++i)
+        {
+            Link<K,V> cur = oldArray[i];
+            while(cur != null)
+            {
+                put(cur.getEntry().getKey(), cur.getEntry().getValue());
+                cur = cur.getNext();
+            }
+        }
+    }
+
+    private void shrinkArray(){
+        if(size >= 0 && size <= array.length/8)
+        {
+            resize(array.length/2);
+        }
+    }
+
     private void expandArray()
     {
         if((size * 100) / array.length > 20)
         {
-            Link<K,V>[] oldArray = array;
-            array = new Link[array.length*2];
-            size = 0;
-            for(int i = 0; i < oldArray.length; ++i)
-            {
-                Link<K,V> cur = oldArray[i];
-                while(cur != null)
-                {
-                    put(cur.getEntry().getKey(), cur.getEntry().getValue());
-                    cur = cur.getNext();
-                }
-            }
+            resize(array.length*2);
         }
     }
     
