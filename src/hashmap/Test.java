@@ -27,5 +27,43 @@ public class Test
             Integer value = myMap.get(s);
             System.out.println("Key: " + s + " Value: " + value);
         }
+
+
+
+        Map<String, Integer> myHashMap = new HashMap<>();
+        for(int i = 0; i < 10; i += 2)
+        {
+            String s = "#" + i;
+            myHashMap.put(s, i);
+        }
+
+        printMap(myHashMap);
+
+        myHashMap.remove("#0");
+        printMap(myHashMap);
+
+        myHashMap.remove("#2");
+        printMap(myHashMap);
+
+        myHashMap.remove("#4");
+        printMap(myHashMap);
+
+        myHashMap.remove("#6");
+        printMap(myHashMap);
+
+
+
+    }
+
+
+    private static void printMap(Map<String, Integer> myMap){
+        for(int i = 0; i < 10; ++i)
+        {
+            String s = "#" + i;
+            Integer value = myMap.get(s);
+            System.out.println("Key: " + s + " Value: " + value);
+
+        }
+        System.out.println(myMap.size());
     }
 }

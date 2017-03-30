@@ -81,9 +81,58 @@ public class HashMap<K,V> implements Map<K,V>
     @Override
     public V remove(K key)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int index = getIndex(key);
+        while(true)
+        {
+
+            if(array[index] == null)
+            {
+                return null;
+            }
+            else if(array[index].getKey().equals(key))
+            {
+                V value = array[index].getValue();
+                removeFromTable(index);
+                return value;
+            }
+            else
+            {
+                index = incIndex(index);
+            }
+        }
+
     }
-    
+
+    private void removeFromTable(int index){
+
+        array[index] = null;
+        index = incIndex(index);
+
+        while(array[index] != null){
+            array[index] = array[incIndex(index)];
+        }
+        size--;
+        checkForDecrementing();
+    }
+
+    //For a cooler solution, a "resize" method should be used. Both for incrementing and decrementing the size of the table.
+    private void checkForDecrementing() {
+        //I am not sure if the load-factor is correct.
+        //If my theory is correct, we should resize if the loadfactor is smaller than 1/8th
+        if(size >= 0 && size <= array.length/8){
+            MapEntry<K,V>[] oldArray = array;
+            array = new MapEntry[array.length/2];
+            size = 0;
+            for(int i = 0; i < oldArray.length; ++i)
+            {
+                if(oldArray[i] != null)
+                {
+                    put(oldArray[i].getKey(), oldArray[i].getValue());
+                }
+            }
+        }
+    }
+
     private int incIndex(int index)
     {
         ++index;
