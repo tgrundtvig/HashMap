@@ -68,7 +68,7 @@ public class HashMapLink<K, V> implements Map<K, V> {
     @Override
     public V remove(K key) {
         int index = getIndex(key);
-        
+
         //If index = null, return null
         if (array[index] == null) {
             return null;
