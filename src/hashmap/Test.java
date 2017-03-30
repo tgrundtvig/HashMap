@@ -27,5 +27,13 @@ public class Test
             Integer value = myMap.get(s);
             System.out.println("Key: " + s + " Value: " + value);
         }
+        myMap.remove("#996");
+        for(int i = 0; i < 1000; ++i)
+        {
+            String s = "#" + i;
+            Integer value = myMap.get(s);
+            System.out.println("Key: " + s + " Value: " + value);
+        }
+        System.out.println(myMap.size());
     }
 }
