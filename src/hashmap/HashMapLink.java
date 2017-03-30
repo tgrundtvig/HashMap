@@ -59,9 +59,17 @@ public class HashMapLink<K, V> implements Map<K, V> {
         }
     }
 
+    /**
+     * Remove method for linkedHashMap
+     *
+     * @param key key to remove
+     * @return value of removed key
+     */
     @Override
     public V remove(K key) {
         int index = getIndex(key);
+        
+        //If index = null, return null
         if (array[index] == null) {
             return null;
         }
@@ -69,9 +77,12 @@ public class HashMapLink<K, V> implements Map<K, V> {
         Link<K, V> curr = array[index];
         Link<K, V> prev = curr;
 
+        //Loop
         while (true) {
+            //Found key, set value
             if (curr.getEntry().getKey().equals(key)) {
                 V val = curr.getEntry().getValue();
+                //Set next link
                 if (curr.getEntry().getKey().equals(prev.getEntry().getKey())) {
                     if (curr.getNext() != null) {
                         array[index] = curr.getNext();
@@ -81,12 +92,16 @@ public class HashMapLink<K, V> implements Map<K, V> {
                 } else {
                     prev.setNext(curr.getNext());
                 }
+                //Return found val
                 return val;
+                //Did not find val
             } else {
                 prev = curr;
+                //No next, return null
                 if (curr.getNext() == null) {
                     return null;
                 }
+                //Try next
                 curr = curr.getNext();
             }
         }

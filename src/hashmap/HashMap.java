@@ -62,31 +62,39 @@ public class HashMap<K, V> implements Map<K, V> {
         }
     }
 
+    /**
+     * Remove method for HashMap
+     *
+     * @param key the key you want to remove
+     * @return value of removed key
+     */
     @Override
     public V remove(K key) {
         int index = getIndex(key);
-        boolean shrink = false;
         V val = null;
         MapEntry<K, V> curr = array[index];
 
+        //Loop until value is found
         while (true) {
+            //if nothing is in map break
             if (curr == null) {
                 break;
             }
-            if (shrink) {
-                array[index - 1] = array[index];
-            }
+
+            //Found key, set value, set array[index] so we break
             if (curr.getKey().equals(key)) {
                 val = curr.getValue();
-                shrink = true;
                 array[index] = null;
+                System.out.println("val: " + val);
             }
 
+            //If index suceed the lenght of the arry, its not here, break
             if (++index >= array.length) {
                 break;
             }
             curr = array[index];
         }
+        //Return the value
         return val;
     }
 
