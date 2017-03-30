@@ -27,5 +27,8 @@ public class Test
             Integer value = myMap.get(s);
             System.out.println("Key: " + s + " Value: " + value);
         }
+        System.out.println(myMap.get("#245"));
+        System.out.println(myMap.remove("#245"));
+        System.out.println(myMap.get("#245"));
     }
 }
