@@ -60,6 +60,7 @@ public class HashMap<K, V> implements Map<K, V> {
         }
     }
 
+    //TODO: Implement downsize array method
     @Override
     public V remove(K key) {
         int index = getIndex(key);
@@ -67,12 +68,22 @@ public class HashMap<K, V> implements Map<K, V> {
             if (array[index].getKey().equals(key)) {
                 V temp = array[index].getValue();
                 array[index] = null;
+                moveIndex(index);
                 return temp;
             } else {
                 index = incIndex(index);
             }
         }
         return null;
+    }
+
+    private void moveIndex(int index) {
+
+        do {
+            index = incIndex(index);
+            array[index - 1] = array[index];
+        } while (array[index] != null);
+
     }
 
     private int incIndex(int index) {

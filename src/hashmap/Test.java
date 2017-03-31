@@ -26,7 +26,7 @@ public class Test {
 //        }
 
 
-        HashMapLink<String, Integer> myMap = new HashMapLink();
+        HashMap<String, Integer> myMap = new HashMap();
 
         for (int i = 0; i < 5000; i++) {
             String s = "#" + i;

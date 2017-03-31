@@ -62,6 +62,7 @@ public class HashMapLink<K, V> implements Map<K, V> {
         }
     }
 
+    //TODO: Implement downsize array method
     @Override
     public V remove(K key) {
         int index = getIndex(key);
@@ -76,7 +77,7 @@ public class HashMapLink<K, V> implements Map<K, V> {
             return temp.getEntry().getValue();
         }
 
-        while (current.getNext() != null) {
+        while (current != null) {
             if (current.getEntry().getKey().equals(key)) {
                 if (prev == null) {
                     array[index] = current.getNext();
@@ -89,7 +90,6 @@ public class HashMapLink<K, V> implements Map<K, V> {
                 prev = current;
                 current = current.getNext();
             }
-
         }
         return null;
     }
