@@ -14,8 +14,19 @@ public class Test
     public static void main(String[] args)
     {
         Map<String, Integer> myMap = new HashMapLink<>();
-        
-        for(int i = 0; i < 1000; i += 2)
+
+
+        myMap.put("Hallo world", 1);
+        myMap.put("Hallo world2", 2);
+        myMap.put("Hallo world3", 3);
+        myMap.put("Hallo world4", 4);
+
+        System.out.println("Size before remove: " + myMap.size());
+        myMap.remove("This is also a test");
+        System.out.println("Size after remove : " + myMap.size());
+
+
+       /* for(int i = 0; i < 1000; i += 2)
         {
             String s = "#" + i;
             myMap.put(s, i);
@@ -26,6 +37,7 @@ public class Test
             String s = "#" + i;
             Integer value = myMap.get(s);
             System.out.println("Key: " + s + " Value: " + value);
-        }
+        }*/
+
     }
 }
