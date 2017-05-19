@@ -7,7 +7,7 @@ package hashmap;
 
 /**
  *
- * @author Tobias
+ * @author MOhammed Salameh
  */
 public interface Map<K, V>
 {
