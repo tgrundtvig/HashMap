@@ -7,7 +7,7 @@ package hashmap;
 
 /**
  *
- * @author Tobias
+ * @author Mohammed Salameh
  */
 public class Test
 {
@@ -24,8 +24,31 @@ public class Test
         for(int i = 0; i < 1000; ++i)
         {
             String s = "#" + i;
+            myMap.remove("#5");
             Integer value = myMap.get(s);
             System.out.println("Key: " + s + " Value: " + value);
         }
+        testImplementation();
+    }
+    
+    
+    public static void testImplementation() {
+    
+        Map<String, Integer> myMap = new HashMapLink<>();
+        
+        //populate
+        for (int i = 0; i<1000; i++) {
+            String s = "#"+i;
+            myMap.put(s ,i);
+        }
+        System.out.println("Size: " + myMap.size());
+        
+        for (int i = 0; i < 1000; ++i) {
+            String s = "#"+i;
+            myMap.remove("#4");
+            Integer value = myMap.get(s);
+            System.out.printf("Key: " + s + " Value: "+ value);
+        }
+        
     }
 }

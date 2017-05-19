@@ -7,7 +7,7 @@ package hashmap;
 
 /**
  *
- * @author Tobias
+ * @author Mohammed Salameh
  */
 public class HashMap<K,V> implements Map<K,V>
 {
@@ -81,7 +81,33 @@ public class HashMap<K,V> implements Map<K,V>
     @Override
     public V remove(K key)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int indx = getIndex(key);
+        boolean indxIndx = false;
+        V returnIndx = null;
+        
+        while (indxIndx == false) {
+            //check for null
+            if (array[indx] == null) {
+                return null;
+            } else if (array[indx].getKey().equals(key)) {
+                //if a key is found get a the value
+                returnIndx = array[indx].getValue();
+                //set the array index to null
+                array[indx] = null;
+                indx = incIndex(indx);
+            } else {
+                indx = incIndex(indx);
+            }
+        }
+        //while the value from the parameter key isnt null
+        while (true) {
+            if (array[indx] != null) {
+                array[indx-1] = array[indx];
+            } else {
+                return returnIndx;
+            }
+        }
+        
     }
     
     private int incIndex(int index)
